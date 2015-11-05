@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example: Virtualized dropdown with local data</title>
+        <link rel="stylesheet" href="bower_components/kendo-ui/styles/kendo.common.min.css" />
+        <link rel="stylesheet" href="bower_components/kendo-ui/styles/kendo.default.min.css" />
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/kendo-ui/js/kendo.ui.core.min.js"></script>
+        <script src="bower_components/lodash/lodash.min.js"></script>
+    </head>
+    <body>
+
+        <div id="sampleDiv">
+            <div class="k-content">
+                <h4>Search for name or idx</h4>
+                <input id="samples" value="uid9999815" style="width: 50%;" />
+            </div>
+
+            <script>
+                var sampleData = [];
+
+                $(document).ready(function () {
+                    //Prepare sample data
+                    for (var i = 0; i < 150000; i++) {
+                        sampleData.push({
+                            idx: "uid" + i + 15,
+                            name: "element with (array)index " + i
+                        });
+                    }
+
+                    //Prepare custom field (for search)
+                    _.forEach(sampleData, function (n) {
+                        n.valueToSerch = n.idx + ' ' + n.name;
+                    });
+
+                    $("#samples").kendoDropDownList({
+                        template: '<b>#= idx #</b> | #= name #',
+                        dataTextField: "valueToSerch",
+                        dataValueField: "idx", //"OrderID",
+                        filter: "contains",
+                        virtual: {
+                            valueMapper: function (options) {
+                                var d = options.value;
+                                var mapped = [];
+                                mapped.push(_.findIndex(sampleData, 'idx', d));
+                                options.success(mapped);
+                            }
+                        },
+                        height: 290,
+                        dataSource: sampleData
+                    });
+                });
+            </script>
+        </div>
+    </body>
+</html>

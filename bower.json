@@ -1,0 +1,26 @@
+{
+  "name": "ctrlJs-virtualizedDropDownList",
+  "authors": [
+    "Maciej Misztal"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.10.1",
+    "kendo-ui": "~2015.3.1023+SP1"
+  }
+}
